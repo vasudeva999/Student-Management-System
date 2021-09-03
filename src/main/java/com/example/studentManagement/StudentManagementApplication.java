@@ -25,17 +25,20 @@ public class StudentManagementApplication {
 
 		LoginForm loginForm = context.getBean(LoginForm.class);
 		RegisterForm regForm = context.getBean(RegisterForm.class);
+		Student student = new Student();
 
 		while (true) {
 			if (option == 1) {
-				loginForm.login(regForm);
+				loginForm.login(student);
 			}else if (option == 2){
 				String choice = regForm.register();
+				student.setName(regForm.getName());
+				student.setPassword(regForm.getPassword());
+				student.setEmail(regForm.getEmail());
 				if (choice.equals("login")) {
-					loginForm.login(regForm);
-					break;
+					loginForm.login(student);
 				}
-				else break;
+				break;
 			}else if(option==3){
 				System.out.println("Case 3 not implemented...");
 			}else{

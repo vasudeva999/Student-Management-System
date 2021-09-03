@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class LoginForm {
 
-    public void login(RegisterForm regForm){
+    public void login(Student regForm){
 
         Scanner sc = new Scanner(System.in);
 
@@ -16,7 +16,6 @@ public class LoginForm {
             System.out.println("Enter your Password :");
             String password = sc.nextLine();
 
-            System.out.println(regForm.getName()+" "+ regForm.getPassword());
             if (!regForm.getName().equals(null) && !regForm.getPassword().equals(null)) {
                 if (regForm.getName().equals(name) && regForm.getPassword().equals(password)) {
                     System.out.println("User - " + name + " Login Successfully...\n");

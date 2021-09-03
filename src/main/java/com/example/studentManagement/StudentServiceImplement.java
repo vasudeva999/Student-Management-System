@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import com.example.studentManagement.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Component;
 
 public class StudentServiceImplement implements StudentService{
     @Override
@@ -14,7 +14,7 @@ public class StudentServiceImplement implements StudentService{
 
     @Override
     public void saveStudent(Student student) {
-
+        System.out.println("Student saved...");
     }
 
     @Override
@@ -23,7 +23,7 @@ public class StudentServiceImplement implements StudentService{
     }
 
     @Override
-    public Student getStudentByID(int id) {
+    public Student getStudentById(int id) {
         return null;
     }
 

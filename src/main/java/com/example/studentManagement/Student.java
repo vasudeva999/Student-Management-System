@@ -6,9 +6,9 @@ public class Student {
 
     private int id;
 
-    private String firstname;
+    private String name;
 
-    private String lastname;
+    private String password;
 
     private String email;
 
@@ -19,17 +19,17 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getLastname() {
-        return lastname;
+    public String getPassword() {
+        return password;
     }
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setPassword(String password) {
+        this.password = password;
     }
     public String getEmail() {
         return email;

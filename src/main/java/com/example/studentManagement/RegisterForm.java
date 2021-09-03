@@ -7,6 +7,15 @@ public class RegisterForm {
 
     private String name;
     private String password;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getName() {
         return name;
@@ -37,6 +46,9 @@ public class RegisterForm {
 
         System.out.println("Re-enter your Password :");
         String password2 = sc.nextLine();
+
+        System.out.println("Enter your Email :");
+        setEmail(sc.nextLine());
 
         System.out.println("Successfully User - "+name+" Created...\n");
         System.out.println("Choose an option\n1. Login\n2. Quit");
