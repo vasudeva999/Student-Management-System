@@ -1,33 +1,16 @@
 package com.example.studentManagement;
 
-import java.util.Scanner;
-
 public class LoginForm {
 
-    public void login(Student regForm){
+    private String userName;
+    private String email;
+    private String password;
 
-        Scanner sc = new Scanner(System.in);
+    public String getUserName() {return userName;}
+    public void setUserName(String userName) {this.userName = userName;}
+    public String getEmail() {return email;}
+    public void setEmail(String email) {this.email = email;}
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
 
-        System.out.println("User Login From");
-        while (true) {
-            System.out.println("Enter your name :");
-            String name = sc.nextLine();
-
-            System.out.println("Enter your Password :");
-            String password = sc.nextLine();
-
-            if (!regForm.getName().equals(null) && !regForm.getPassword().equals(null)) {
-                if (regForm.getName().equals(name) && regForm.getPassword().equals(password)) {
-                    System.out.println("User - " + name + " Login Successfully...\n");
-                    break;
-                }
-            }
-            else{
-                System.out.println("User name or password is wrong..\n1. Try Again\n2. Quit");
-                int option = sc.nextInt();
-                if (option==2) break;
-            }
-        }
-
-    }
 }

@@ -1,35 +1,31 @@
 package com.example.studentManagement;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-@RestController
 public class StudentController {
 
     @Autowired
-    private StudentServiceImplement studentServiceImp;
+    private StudentService studentService;
 
-    @RequestMapping("/")
-    public String viewHomePage() {
-        return "Home page view...";
+    @RequestMapping("login")
+    public String login(LoginForm login) {
+        System.out.println("Login form Running...");
+
+        return "login";
     }
 
-    @RequestMapping("index")
-    public String index(){
-        System.out.println("Index Running...");
-        return "index.html";
-    }
+    @RequestMapping("register")
+    public String register(Student student){
+        System.out.println("Register form Running...");
 
-    @RequestMapping("save")
-    public String saveStudent(){
-        Student student = new Student();
-        studentServiceImp.saveStudent(student);
-        System.out.println("Student save in controller..");
-        return "Saved Student data...";
+        if (!(student.getUserName()==null)) {
+            studentService.saveStudent(student);
+            return "login";
+        }
+        return "register";
     }
 
 }
