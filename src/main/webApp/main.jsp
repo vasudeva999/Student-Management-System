@@ -47,21 +47,7 @@ button {
 </style>
 </head>
 <body>
-    <center> <h1> Student Login Form </h1> </center>
-    <form action="#" th:object ="${login}" method="POST">
-        <div class="container">
-            <label>UserName : </label>
-            <input type="text" placeholder="Enter Username" name="userName" required>
-            <label>EmailID : </label>
-            <input type="text" placeholder="Enter Email-ID" name="email" required>
-            <label>Password : </label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-            <button type="submit">Login</button>
-            <input type="checkbox" checked="checked"> Remember me
-
-            Forgot <a href="#"> password? </a>
-        </div>
-    </form>
+    <center> <h1> Student Marks Management System </h1> </center>
 
     <form action="register" method="POST">
         <div class="container">
@@ -69,10 +55,23 @@ button {
         </div>
     </form>
 
-    <form action="/" method="POST">
+    <form action="login" method="POST">
             <div class="container">
-                <button type="submit" class="cancelbtn"> Cancel</button>
+              <button type="submit"> Login </button>
             </div>
-        </form>
+    </form>
+
+    <form action="studentHome-0" method="POST">
+            <div class="container">
+                <button type="submit" > Go to Student Home Page </button>
+            </div>
+    </form>
+
+    <form action="studentProfile-0" method="POST">
+            <div class="container">
+                <button type="submit" > Go to Student Profile Page </button>
+            </div>
+    </form>
+
 </body>
 </html>

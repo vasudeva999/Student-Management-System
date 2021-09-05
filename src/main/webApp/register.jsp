@@ -48,7 +48,7 @@ button {
 </head>
 <body>
     <center> <h1> Student Register Form </h1> </center>
-    <form action="#" th:action="@{/saveStudent}" th:object ="${student}" method="POST">
+    <form action="#" th:object ="${student}" method="POST">
         <div class="container">
             <label>UserName : </label>
             <input type="text" placeholder="Enter UserName" name="userName" required>
@@ -63,8 +63,21 @@ button {
             <label>Re-type Password : </label>
             <input type="password" placeholder="Re-type your Password" name="password2" required>
             <button type="submit">Register</button>
-            <button type="button" class="cancelbtn"> Cancel</button>
+
         </div>
     </form>
+
+    <form action="login" method="POST">
+            <div class="container">
+              <button type="submit"> Student Login</button>
+            </div>
+    </form>
+
+    <form action="/" method="POST">
+        <div class="container">
+            <button type="submit" class="cancelbtn"> Cancel</button>
+        </div>
+    </form>
+
 </body>
 </html>

@@ -1,7 +1,6 @@
 package com.example.studentManagement;
 
 import java.util.List;
-import com.example.studentManagement.Student;
 
 public interface StudentService {
 
@@ -9,8 +8,14 @@ public interface StudentService {
 
     void saveStudent(Student student);
 
+    Student findStudent(String userName, String password);
+
+    void updateStudent(Student newStudent);
+
     void deleteStudentById (int id);
 
     Student getStudentById(int id);
+
+    List<StudentMarks> getStudentMarks(int id);
 
 }

@@ -1,29 +1,32 @@
 package com.example.studentManagement;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "userName")
     private String userName;
 
+    @Column(name = "firstName")
     private String firstName;
 
+    @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
     private String email;
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
     public void setId(int id) {
@@ -42,9 +45,7 @@ public class Student {
     public String getPassword() {
         return password;
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) {this.password = password;}
     public String getEmail() {
         return email;
     }
