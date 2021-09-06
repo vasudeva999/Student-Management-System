@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <html xmlns=""><head>
@@ -44,15 +47,15 @@ button {
         background-color: lightblue;
     }
     .submitButton {
-             display: inline-block;
-             padding: 10px 20px;
-             text-align: center;
-             text-decoration: none;
-             color: #ffffff;
-             background-color: #7aa8b7;
-             border-radius: 6px;
-             outline: none;
-           }
+                 display: inline-block;
+                 padding: 10px 20px;
+                 text-align: center;
+                 text-decoration: none;
+                 color: #ffffff;
+                 background-color: #7aa8b7;
+                 border-radius: 6px;
+                 outline: none;
+               }
 </style>
 </head>
 <body>
@@ -72,21 +75,25 @@ button {
         <table border="1" cellpadding="5">
             <caption><h2>Marks Sheet</h2></caption>
            <tr>
+
+                <th>Student Id</th>
                 <th>Telugu</th>
                 <th>Hindi</th>
                 <th>English</th>
                 <th>Maths</th>
                 <th>Total Marks</th>
+
             </tr>
 
 
-<c:forEach items="${marks}" var="item">
+<c:forEach items="${allStudents}" var="student">
 <tr>
- <td>${marks.get(0).telugu}</td>
-<td>${marks.get(0).hindi}</td>
-<td>${marks.get(0).english}</td>
-<td>${marks.get(0).maths}</td>
-<td>${marks.get(0).total}</td>
+<td>${student.id}</td>
+ <td>${student.telugu}</td>
+<td>${student.hindi}</td>
+<td>${student.english}</td>
+<td>${student.maths}</td>
+<td>${student.total}</td>
 
 
     </tr>
@@ -94,9 +101,11 @@ button {
 
         </table>
     </div>
-
-             <a class="submitButton" href="profile-${id}"> Profile </a>
-             <a class="submitButton" href="/"> Log-out </a>
+            <a class="submitButton" href="updateMarkList-${id}"> Update Marks </a>
+            <a class="submitButton" href="createMarkList-${id}"> Create Mark List </a>
+            <a class="submitButton" href="profile-${id}"> Profile </a>
+            <a class="submitButton" href="studentHome-${id}"> Switch to Student Home Page </a>
+            <a class="submitButton" href="/"> Log-out </a>
 
             </table><BR>
             </fieldset>

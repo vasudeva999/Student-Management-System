@@ -7,45 +7,43 @@ import javax.persistence.*;
 public class StudentMarks {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int sid;
+    private int telugu;
 
-    private String subjects;
+    private int hindi;
 
-    private int marks;
+    private int english;
+
+    private int maths;
+
+    private int total;
 
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) {this.id = id;}
 
-    public int getSid() {
-        return sid;
-    }
+    public int getTelugu() {return telugu;}
 
-    public void setSid(int sid) {
-        this.sid = sid;
-    }
+    public void setTelugu(int telugu) {this.telugu = telugu;}
 
-    public String getSubjects() {
-        return subjects;
-    }
+    public int getHindi() {return hindi;}
 
-    public void setSubjects(String subjects) {
-        this.subjects = subjects;
-    }
+    public void setHindi(int hindi) {this.hindi = hindi;}
 
-    public int getMarks() {
-        return marks;
-    }
+    public int getEnglish() {return english;}
 
-    public void setMarks(int marks) {
-        this.marks = marks;
-    }
+    public void setEnglish(int english) {this.english = english;}
+
+    public int getMaths() {return maths;}
+
+    public void setMaths(int maths) {this.maths = maths;}
+
+    public int getTotal() {return total;}
+
+    public void setTotal() {this.total = telugu+hindi+english+maths;}
+
 }

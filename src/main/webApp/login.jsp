@@ -65,7 +65,7 @@ button {
 
     <form action="register" method="POST">
         <div class="container">
-          <button type="submit"> New Student Register</button>
+          <button type="submit"> New Register</button>
         </div>
     </form>
 

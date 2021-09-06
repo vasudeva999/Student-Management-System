@@ -12,18 +12,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query(value = "Select * from STUDENT where user_name=?1 and password=?2", nativeQuery = true)
     Student findByNameAndPassword(String userName, String password);
 
-    @Query(value = "Select * from STUDENT_MARKS where SID=?1 and subjects='Telugu'", nativeQuery = true)
-    int getStudentMarks(int sid);
-
     @Modifying
     @Transactional
     @Query(value = "Update STUDENT set user_name=?1, first_name=?2, last_name=?3, email=?4, password=?5 where id=?6",
             nativeQuery = true)
     void updateStudent(String userName, String firstName, String lastName, String email, String password, int id);
 
-
-    @Modifying
-    @Transactional
-    @Query(value="Insert into student_marks(sid, subjects, marks)values(?1, ?2, ?3)", nativeQuery = true)
-    void saveMarks(int sid, String subject, int marks);
 }

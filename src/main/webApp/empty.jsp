@@ -84,10 +84,10 @@ button {
      <h3>    You have no data in database</h3>
      <h3>    Contact your Admin :)</h3>
 
-     <form action="studentProfile-0" method="POST">
+     <form action="profile-0" method="POST">
          </form>
 
-        <form action="studentProfile-${id}" method="POST">
+        <form action="profile-${id}" method="POST">
               <div class="container">
                 <button type="submit" > Student Prodile </button>
               </div>

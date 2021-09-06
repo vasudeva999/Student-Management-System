@@ -1,6 +1,7 @@
 package com.example.studentManagement;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
 
@@ -16,9 +17,5 @@ public interface StudentService {
 
     Student getStudentById(int id);
 
-    int getStudentMarks(int id);
-
-
-    void saveStudentMarks(MarksForm marks);
 
 }

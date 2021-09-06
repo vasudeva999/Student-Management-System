@@ -57,7 +57,7 @@ button {
 </style>
 </head>
 <body>
-<center> <h1> Student Profile </h1> </center>
+<center> <h1> User Profile </h1> </center>
 
 <form action="#" th:object ="${student}" method="POST">
     <div class="container">
@@ -72,8 +72,9 @@ button {
         <label>Password : </label>
         <input type="password" value="Password is Hidden" readonly>
 
-        <a class="submitButton" href="updateStudent-${student.getId()}"> Update Details </a>
+        <a class="submitButton" href="updateDetails-${student.getId()}"> Update Details </a>
         <a class="submitButton" href="studentHome-${student.getId()}"> Cancel </a>
+        <a class="submitButton" href="deleteUser-${student.getId()}"> Delete Account </a>
 
     </div>
 </form>

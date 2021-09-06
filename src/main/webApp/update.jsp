@@ -57,8 +57,8 @@ button {
 </style>
 </head>
 <body>
-<center> <h1> Student Update Form </h1> </center>
-    <form action="#" th:action="@{/saveStudent}" th:object ="${student}" method="POST">
+<center> <h1> User Update Form </h1> </center>
+    <form action="#" th:object ="${student}" method="POST">
         <div class="container">
             <label>UserName : </label>
             <input type="text" placeholder="Enter UserName" value="${student.getUserName()}" name="userName" required>
@@ -69,10 +69,10 @@ button {
             <label>EmailID : </label>
             <input type="text" placeholder="Enter Email-ID" value="${student.getEmail()}" name="email" required>
             <label>Password : </label>
-            <input type="password" placeholder="Enter your Password" value="${student.getPassword()}" name="password" required>
+            <input type="text" placeholder="Enter your Password" value="${student.getPassword()}" name="password" required>
 
             <button type="submit"> Save Update </button>
-            <a class="submitButton" href="studentHome-${student.getId()}"> Cancel </a>
+            <a class="submitButton" href="profile-${student.getId()}"> Cancel </a>
     </div>
 </form>
 

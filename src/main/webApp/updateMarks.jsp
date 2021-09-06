@@ -61,15 +61,15 @@ button {
     <form action="#" th:object ="${marks}" method="POST">
         <div class="container">
             <label>Student-ID : </label>
-            <input type="text" placeholder="Enter Student ID" name="id" required>
+            <input type="text" placeholder="Enter Student ID" value="${marks.id}" name="id" required>
             <label>Telugu: </label>
-            <input type="text" placeholder="Enter Telugu marks" name="telugu" required>
+            <input type="text" placeholder="Enter Telugu marks" value="${marks.telugu}" name="telugu" required>
             <label>Hindi : </label>
-            <input type="text" placeholder="Enter Hindi marks" name="hindi" required>
+            <input type="text" placeholder="Enter Hindi marks" value="${marks.hindi}" name="hindi" required>
             <label>English : </label>
-            <input type="text" placeholder="Enter English marks" name="english" required>
+            <input type="text" placeholder="Enter English marks" value="${marks.english}" name="english" required>
             <label>Maths : </label>
-            <input type="text" placeholder="Enter Maths marks" name="maths" required>
+            <input type="text" placeholder="Enter Maths marks" value="${marks.maths}" name="maths" required>
 
             <button type="submit"> Save Data </button>
             <a class="submitButton" href="adminHome-${id}"> Cancel </a>

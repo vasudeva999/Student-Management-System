@@ -5,13 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.SQLOutput;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private StudentMarksService studentMarksService;
 
     @RequestMapping("/")
     public String main(){
@@ -26,8 +31,11 @@ public class StudentController {
 
         if (!(student==null) && !(login.getUserName()==null))
             if (student.getUserName().equalsIgnoreCase(login.getUserName()) &&
-            student.getPassword().equalsIgnoreCase(login.getPassword()))
-                return "redirect:/studentHome-"+student.getId();
+            student.getPassword().equalsIgnoreCase(login.getPassword())) {
+                if (student.isAdmin())
+                    return "redirect:/adminHome-" + student.getId();
+                return "redirect:/studentHome-" + student.getId();
+            }
         return "login";
     }
 
@@ -42,8 +50,8 @@ public class StudentController {
         return "register";
     }
 
-    @RequestMapping("studentProfile-{id}")
-    public ModelAndView studentProfile(@PathVariable("id")int id){
+    @RequestMapping("profile-{id}")
+    public ModelAndView profile(@PathVariable("id")int id){
         System.out.println("student-profile running....");
 
         Student student = studentService.getStudentById(id);
@@ -61,8 +69,8 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("updateStudent-{id}")
-    public ModelAndView updateStudent(@PathVariable("id")int id, Student newStudent){
+    @RequestMapping("updateDetails-{id}")
+    public ModelAndView updateDetails(@PathVariable("id")int id, Student newStudent){
         System.out.println("Update-form running...");
 
         ModelAndView mv = new ModelAndView();
@@ -73,7 +81,7 @@ public class StudentController {
             System.out.println("New Student is not null....");
             newStudent.setId(student.getId());
             studentService.updateStudent(newStudent);
-            mv.setViewName("redirect:/studentProfile-"+newStudent.getId());
+            mv.setViewName("redirect:/profile-"+newStudent.getId());
             return mv;
         }
 
@@ -82,9 +90,9 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("deleteStudent-{id}")
-    public String deleteStudent(@PathVariable("id")int id){
-        System.out.println("student-page running....");
+    @RequestMapping("deleteUser-{id}")
+    public String deleteUser(@PathVariable("id")int id){
+        System.out.println("Delete student running....");
 
         studentService.deleteStudentById(id);
         return "redirect:/register";
@@ -101,15 +109,14 @@ public class StudentController {
             mv.setViewName("redirect:/register");
             return mv;
         }
-        int marks = studentService.getStudentMarks(id);
-        if (marks==0){
+        List<StudentMarks> marks = studentMarksService.getByStudentMarks(id);
+        if (marks.isEmpty()){
             System.out.println("Student have no data...");
             mv.setViewName("empty");
             mv.addObject("id", id);
             return mv;
         }
 
-        System.out.println(marks);
         System.out.println("Student have data...");
 
         mv.setViewName("home");
@@ -118,28 +125,65 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("addMarks-{sid}")
-    public String addMarks(@PathVariable("sid")int sid, MarksForm marksForm){
+    @RequestMapping("createMarkList-{id}")
+    public ModelAndView createMarkList(@PathVariable("id")int id, StudentMarks studentMarks){
         System.out.println("Add marks running...");
 
-        if (!(marksForm==null)){
-            studentService.saveStudentMarks(marksForm);
-        }
+        ModelAndView mv = new ModelAndView();
 
-        return "marks";
+        if (studentMarks.getEnglish()!=0){
+            studentMarks.setTotal();
+            studentMarksService.saveStudentMarks(studentMarks);
+
+            if (studentMarksService.findByAdmin(id)) {
+                mv.setViewName("redirect:/adminHome-" + id);
+                return mv;
+            }
+            mv.setViewName("redirect:/studentHome-"+id);
+            return mv;
+        }
+        mv.setViewName("marks");
+        mv.addObject("id", id);
+        return mv;
+    }
+
+    @RequestMapping("updateMarkList-{id}")
+    public String updateMarkList(@PathVariable("id")int id, StudentMarks newStudentMarks){
+        System.out.println("Update Mark List is Running...");
+
+        Optional<StudentMarks> studentMarks = studentMarksService.findById(newStudentMarks.getId());
+
+        if (newStudentMarks.getEnglish()!=0 && studentMarks!=null){
+            System.out.println("Updated mark list found.....");
+            newStudentMarks.setTotal();
+            studentMarksService.updateMarkList(newStudentMarks);
+            return "redirect:/adminHome-"+id;
+        }
+        return "updateMarks";
+    }
+
+    @RequestMapping("allStudents")
+    public ModelAndView allStudents(){
+        System.out.println("Printing all students");
+
+        List<Student> allStudents = studentService.getAllStudents();
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("adminHome");
+        mv.addObject("allStudents", allStudents);
+        return mv;
     }
 
 
-//    @RequestMapping("allStudents")
-//    public ModelAndView allStudents(){
-//        System.out.println("Printing all students");
-//
-//        List<Student> allstudents = studentService.getAllStudents();
-//        ModelAndView mv = new ModelAndView();
-//        mv.setViewName("home");
-//        mv.addObject("allStudents", allStudents());
-//        return mv;
-//    }
+    @RequestMapping("adminHome-{id}")
+    public ModelAndView adminHome(@PathVariable("id")int id){
+        System.out.println("Admin Home Running...");
 
+        List<StudentMarks> allStudents = studentMarksService.getAllStudentsMarks();
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("allStudents", allStudents);
+        mv.setViewName("adminHome");
+        return mv;
+    }
 
 }

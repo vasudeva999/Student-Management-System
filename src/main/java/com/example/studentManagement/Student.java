@@ -7,23 +7,20 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "userName")
     private String userName;
 
-    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
     private String email;
+
+    private boolean isAdmin;
+
 
 
     public int getId() {
@@ -52,5 +49,6 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public boolean isAdmin() {return isAdmin;}
+    public void setAdmin(boolean admin) {isAdmin = admin;}
 }

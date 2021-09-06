@@ -49,9 +49,15 @@ button {
 <body>
     <center> <h1> Student Marks Management System </h1> </center>
 
+    <form action="login" method="POST">
+            <div class="container">
+              <button type="submit"> Admin Login </button>
+            </div>
+    </form>
+
     <form action="register" method="POST">
         <div class="container">
-          <button type="submit"> New Student Register</button>
+          <button type="submit"> New Register</button>
         </div>
     </form>
 
@@ -67,7 +73,7 @@ button {
             </div>
     </form>
 
-    <form action="studentProfile-0" method="POST">
+    <form action="profile-0" method="POST">
             <div class="container">
                 <button type="submit" > Go to Student Profile Page </button>
             </div>

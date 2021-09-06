@@ -62,6 +62,8 @@ button {
             <input type="password" placeholder="Enter your Password" name="password" required>
             <label>Re-type Password : </label>
             <input type="password" placeholder="Re-type your Password" name="password2" required>
+            <input type="checkbox" name="admin"> Make Admin
+
             <button type="submit">Register</button>
 
         </div>
@@ -69,7 +71,7 @@ button {
 
     <form action="login" method="POST">
             <div class="container">
-              <button type="submit"> Student Login</button>
+              <button type="submit"> Login </button>
             </div>
     </form>
 
