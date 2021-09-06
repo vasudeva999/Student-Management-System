@@ -94,8 +94,6 @@ public class StudentController {
     public ModelAndView studentHome(@PathVariable("id")int id){
         System.out.println("Home page Running...");
 
-        int marks = studentService.getStudentMarks(id);
-
         ModelAndView mv = new ModelAndView();
 
         if (id==0){
@@ -103,7 +101,7 @@ public class StudentController {
             mv.setViewName("redirect:/register");
             return mv;
         }
-
+        int marks = studentService.getStudentMarks(id);
         if (marks==0){
             System.out.println("Student have no data...");
             mv.setViewName("empty");
