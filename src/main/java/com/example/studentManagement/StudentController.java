@@ -94,7 +94,7 @@ public class StudentController {
     public ModelAndView studentHome(@PathVariable("id")int id){
         System.out.println("Home page Running...");
 
-        List<StudentMarks> marks = studentService.getStudentMarks(id);
+        int marks = studentService.getStudentMarks(id);
 
         ModelAndView mv = new ModelAndView();
 
@@ -104,13 +104,14 @@ public class StudentController {
             return mv;
         }
 
-        if (marks.isEmpty()){
+        if (marks==0){
             System.out.println("Student have no data...");
             mv.setViewName("empty");
             mv.addObject("id", id);
             return mv;
         }
 
+        System.out.println(marks);
         System.out.println("Student have data...");
 
         mv.setViewName("home");
@@ -119,6 +120,16 @@ public class StudentController {
         return mv;
     }
 
+    @RequestMapping("addMarks-{sid}")
+    public String addMarks(@PathVariable("sid")int sid, MarksForm marksForm){
+        System.out.println("Add marks running...");
+
+        if (!(marksForm==null)){
+            studentService.saveStudentMarks(marksForm);
+        }
+
+        return "marks";
+    }
 
 
 //    @RequestMapping("allStudents")

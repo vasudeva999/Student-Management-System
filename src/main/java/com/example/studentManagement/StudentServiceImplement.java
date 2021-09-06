@@ -46,6 +46,19 @@ public class StudentServiceImplement implements StudentService{
     }
 
     @Override
-    public List<StudentMarks> getStudentMarks(int id){return studentRepo.getStudentMarks(id);}
+    public int getStudentMarks(int id){return studentRepo.getStudentMarks(id);}
 
+
+    @Override
+    public void saveStudentMarks(MarksForm marksForm){
+        int sid = marksForm.getSid();
+
+        studentRepo.saveMarks(sid, "Telugu", marksForm.getTeluguMarks());
+
+        studentRepo.saveMarks(sid, "Hindi", marksForm.getHindiMarks());
+
+        studentRepo.saveMarks(sid, "English", marksForm.getEnglishMarks());
+
+        studentRepo.saveMarks(sid, "Maths", marksForm.getMathsMarks());
+    }
 }

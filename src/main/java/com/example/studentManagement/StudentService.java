@@ -16,6 +16,9 @@ public interface StudentService {
 
     Student getStudentById(int id);
 
-    List<StudentMarks> getStudentMarks(int id);
+    int getStudentMarks(int id);
+
+
+    void saveStudentMarks(MarksForm marks);
 
 }
