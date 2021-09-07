@@ -53,11 +53,12 @@ button {
              background-color: #7aa8b7;
              border-radius: 6px;
              outline: none;
+             margin-top: 19px;
            }
 </style>
 </head>
 <body>
-    <center> <h1> Student Marks Register Form </h1> </center>
+    <center> <h1> Student Marks Update Form </h1> </center>
     <form action="#" th:object ="${marks}" method="POST">
         <div class="container">
             <label>Student-ID : </label>

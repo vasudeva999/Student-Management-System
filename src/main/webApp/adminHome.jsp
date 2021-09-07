@@ -55,6 +55,7 @@ button {
                  background-color: #7aa8b7;
                  border-radius: 6px;
                  outline: none;
+                 margin-top: 19px;
                }
 </style>
 </head>
@@ -104,6 +105,7 @@ button {
             <a class="submitButton" href="updateMarkList-${id}"> Update Marks </a>
             <a class="submitButton" href="createMarkList-${id}"> Create Mark List </a>
             <a class="submitButton" href="profile-${id}"> Profile </a>
+
             <a class="submitButton" href="studentHome-${id}"> Switch to Student Home Page </a>
             <a class="submitButton" href="/"> Log-out </a>
 

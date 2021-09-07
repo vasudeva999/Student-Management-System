@@ -52,6 +52,7 @@ button {
              background-color: #7aa8b7;
              border-radius: 6px;
              outline: none;
+             margin-top: 19px;
            }
 </style>
 </head>
