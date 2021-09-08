@@ -123,17 +123,18 @@ public class StudentController {
 
         ModelAndView mv = new ModelAndView();
 
+        if (id==0){
+            System.out.println("student need to login to access the home page");
+            mv.setViewName("redirect:/register");
+            return mv;
+        }
+
         boolean isAdmin = studentService.findByIsAdmin(id);
         if (isAdmin){
             String button = "<a class='submitButton' href='adminHome-"+id+"'> Switch to Admin Page </a>";
             mv.addObject("exists", button);
         }
 
-        if (id==0){
-            System.out.println("student need to login to access the home page");
-            mv.setViewName("redirect:/register");
-            return mv;
-        }
         List<StudentMarks> marks = studentMarksService.getByStudentMarks(id);
         if (marks.isEmpty()){
             System.out.println("Student have no data...");
