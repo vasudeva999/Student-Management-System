@@ -9,6 +9,8 @@ public interface StudentService {
 
     void saveStudent(Student student);
 
+    Optional<Student> findByUserName(String userName);
+
     Student findStudent(String userName, String password);
 
     void updateStudent(Student newStudent);
@@ -17,5 +19,6 @@ public interface StudentService {
 
     Student getStudentById(int id);
 
+    boolean findByIsAdmin(int id);
 
 }

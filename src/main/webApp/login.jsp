@@ -50,6 +50,7 @@ button {
     <center> <h1> Student Login Form </h1> </center>
     <form action="#" th:object ="${login}" method="POST">
         <div class="container">
+            <h4>${exists}</h4>
             <label>UserName : </label>
             <input type="text" placeholder="Enter Username" name="userName" required>
             <label>EmailID : </label>

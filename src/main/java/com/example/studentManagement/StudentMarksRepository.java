@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentMarksRepository extends JpaRepository<StudentMarks, Integer> {
 
@@ -14,10 +15,10 @@ public interface StudentMarksRepository extends JpaRepository<StudentMarks, Inte
 
     @Modifying
     @Transactional
-    @Query(value="Insert into student_marks(id, telugu, hindi, english, maths, total)values(?1, ?2, ?3, ?4, ?5, ?6)", nativeQuery = true)
+    @Query(value = "update student_marks set telugu=?2, hindi=?3, english=?4, maths=?5, total=?6 where id=?1", nativeQuery = true)
     void updateMarkList(int id, int telugu, int hindi, int english, int maths, int total);
 
-    @Query(value="select is_admin from student_marks where id=?1", nativeQuery = true)
-    public boolean findByAdmin(int id);
+    @Query(value = "Select total from student_marks where id=?1", nativeQuery = true)
+    Optional<Integer> findById(int id);
 
 }

@@ -50,6 +50,7 @@ button {
     <center> <h1> Student Register Form </h1> </center>
     <form action="#" th:object ="${student}" method="POST">
         <div class="container">
+            <h4>${exists}</h4>
             <label>UserName : </label>
             <input type="text" placeholder="Enter UserName" name="userName" required>
             <label>FirstName : </label>

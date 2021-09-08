@@ -70,7 +70,7 @@ button {
         <table width="600" height="300"align=center cellspacing=0 border="0" cellpadding=0>
         <tr><td>
             <fieldset id="fieldhead">
-            <legend> Welcome to Student Portal </legend><BR>
+            <legend> Welcome to Admin Portal </legend><BR>
             <table align=center cellspacing=1 cellpadding=3><form method=get action="">
                 <div align="center">
         <table border="1" cellpadding="5">
@@ -108,6 +108,7 @@ button {
 
             <a class="submitButton" href="studentHome-${id}"> Switch to Student Home Page </a>
             <a class="submitButton" href="/"> Log-out </a>
+            <a class="submitButton" href="deleteMarks-${id}"> Delete Record </a>
 
             </table><BR>
             </fieldset>

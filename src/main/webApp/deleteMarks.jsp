@@ -58,22 +58,14 @@ button {
 </style>
 </head>
 <body>
-    <center> <h1> Student Marks Update Form </h1> </center>
-    <form action="#" th:object ="${marks}" method="POST">
+    <center> <h1> Student Marks Delete Form </h1> </center>
+    <form action="#" method="POST">
         <div class="container">
             <h4>${exists}</h4>
             <label>Student-ID : </label>
-            <input type="text" placeholder="Enter Student ID" value="${marks.id}" name="id" required>
-            <label>Telugu: </label>
-            <input type="text" placeholder="Enter Telugu marks" value="${marks.telugu}" name="telugu" required>
-            <label>Hindi : </label>
-            <input type="text" placeholder="Enter Hindi marks" value="${marks.hindi}" name="hindi" required>
-            <label>English : </label>
-            <input type="text" placeholder="Enter English marks" value="${marks.english}" name="english" required>
-            <label>Maths : </label>
-            <input type="text" placeholder="Enter Maths marks" value="${marks.maths}" name="maths" required>
+            <input type="text" placeholder="Enter Student ID" value="" name="sid" required>
 
-            <button type="submit"> Save Data </button>
+            <button type="submit"> Delete Record </button>
             <a class="submitButton" href="adminHome-${id}"> Cancel </a>
 
         </div>

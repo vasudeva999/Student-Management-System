@@ -45,4 +45,9 @@ public class StudentServiceImplement implements StudentService{
         return (studentList.isPresent())?student=studentList.get():student;
     }
 
+    @Override
+    public boolean findByIsAdmin(int id){return studentRepo.findByIsAdmin(id);}
+
+    @Override
+    public Optional<Student> findByUserName(String userName){return studentRepo.findByUserName(userName);}
 }

@@ -16,13 +16,13 @@ public class StudentMarksServiceImplement implements StudentMarksService {
     public List<StudentMarks> getByStudentMarks(int id){return studentMarksRepo.findByStudentId(id);}
 
     @Override
-    public List<StudentMarks> getAllStudentsMarks(){return studentMarksRepo.findAll();}
+    public Iterable<StudentMarks> getAllStudentsMarks(){return studentMarksRepo.findAll();}
 
     @Override
     public void saveStudentMarks(StudentMarks studentMarks){studentMarksRepo.save(studentMarks);}
 
     @Override
-    public Optional<StudentMarks> findById(int id){return studentMarksRepo.findById(id);}
+    public Optional<Integer> findById(int id){return studentMarksRepo.findById(id);}
 
     @Override
     public void updateMarkList(StudentMarks studentMarks){
@@ -31,6 +31,6 @@ public class StudentMarksServiceImplement implements StudentMarksService {
     }
 
     @Override
-    public boolean findByAdmin(int id){return studentMarksRepo.findByAdmin(id);}
+    public void deleteMarksById(int id){studentMarksRepo.deleteById(id);}
 
 }

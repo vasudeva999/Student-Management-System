@@ -1,5 +1,6 @@
 package com.example.studentManagement;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,30 +25,49 @@ public class StudentController {
     }
 
     @RequestMapping("login")
-    public String login(LoginForm login) {
+    public ModelAndView login(LoginForm login) {
         System.out.println("Login form Running...");
 
         Student student = studentService.findStudent(login.getUserName(), login.getPassword());
 
-        if (!(student==null) && !(login.getUserName()==null))
+        ModelAndView mv = new ModelAndView();
+
+        if (student!=null && login.getUserName()!=null) {
             if (student.getUserName().equalsIgnoreCase(login.getUserName()) &&
-            student.getPassword().equalsIgnoreCase(login.getPassword())) {
-                if (student.isAdmin())
-                    return "redirect:/adminHome-" + student.getId();
-                return "redirect:/studentHome-" + student.getId();
+                    student.getPassword().equalsIgnoreCase(login.getPassword())) {
+                if (student.isAdmin()) {
+                    mv.setViewName("redirect:/adminHome-" + student.getId());
+                    return mv;
+                }
+                mv.setViewName("redirect:/studentHome-" + student.getId());
+                return mv;
             }
-        return "login";
+
+        }
+        if (student==null && login.getUserName()!=null) mv.addObject("exists", "UserName or Password is wrong");
+
+        mv.setViewName("login");
+        return mv;
     }
 
     @RequestMapping("register")
-    public String register(Student student){
+    public ModelAndView register(Student student){
         System.out.println("Register form Running...");
 
-        if (!(student.getUserName()==null)) {
+        ModelAndView mv = new ModelAndView();
+
+        Optional<Student> userName = studentService.findByUserName(student.getUserName());
+
+        System.out.println(userName);
+        if (student.getUserName()!=null && userName.isEmpty()) {
             studentService.saveStudent(student);
-            return "redirect:/login";
+            mv.setViewName("redirect:/login");
+            return mv;
         }
-        return "register";
+
+        if (!userName.isEmpty()) mv.addObject("exists", "UserName already exists.");
+        mv.setViewName("register");
+        return mv;
     }
 
     @RequestMapping("profile-{id}")
@@ -92,7 +112,7 @@ public class StudentController {
 
     @RequestMapping("deleteUser-{id}")
     public String deleteUser(@PathVariable("id")int id){
-        System.out.println("Delete student running....");
+        System.out.println("Delete User running....");
 
         studentService.deleteStudentById(id);
         return "redirect:/register";
@@ -131,11 +151,12 @@ public class StudentController {
 
         ModelAndView mv = new ModelAndView();
 
-        if (studentMarks.getEnglish()!=0){
+        Optional<Integer> check = studentMarksService.findById(studentMarks.getId());
+        if (studentMarks.getEnglish()!=0 && check.isEmpty()){
             studentMarks.setTotal();
             studentMarksService.saveStudentMarks(studentMarks);
 
-            if (studentMarksService.findByAdmin(id)) {
+            if (studentService.findByIsAdmin(id)) {
                 mv.setViewName("redirect:/adminHome-" + id);
                 return mv;
             }
@@ -144,45 +165,63 @@ public class StudentController {
         }
         mv.setViewName("marks");
         mv.addObject("id", id);
+        if (studentMarks.getEnglish()!=0 && !check.isEmpty())
+            mv.addObject("exists", "Student already exists");
         return mv;
     }
 
     @RequestMapping("updateMarkList-{id}")
-    public String updateMarkList(@PathVariable("id")int id, StudentMarks newStudentMarks){
+    public ModelAndView updateMarkList(@PathVariable("id")int id, StudentMarks newStudentMarks){
         System.out.println("Update Mark List is Running...");
 
-        Optional<StudentMarks> studentMarks = studentMarksService.findById(newStudentMarks.getId());
+        ModelAndView mv = new ModelAndView();
 
-        if (newStudentMarks.getEnglish()!=0 && studentMarks!=null){
+        Optional<Integer> check = studentMarksService.findById(newStudentMarks.getId());
+        if (newStudentMarks.getEnglish()!=0 && !(check.isEmpty())){
             System.out.println("Updated mark list found.....");
             newStudentMarks.setTotal();
             studentMarksService.updateMarkList(newStudentMarks);
-            return "redirect:/adminHome-"+id;
+            mv.setViewName("redirect:/adminHome-"+id);
+            return mv;
         }
-        return "updateMarks";
-    }
-
-    @RequestMapping("allStudents")
-    public ModelAndView allStudents(){
-        System.out.println("Printing all students");
-
-        List<Student> allStudents = studentService.getAllStudents();
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("adminHome");
-        mv.addObject("allStudents", allStudents);
+        mv.setViewName("updateMarks");
+        if (newStudentMarks.getEnglish()!=0 && check.isEmpty())
+            mv.addObject("exists", "Student not Exists");
         return mv;
     }
-
 
     @RequestMapping("adminHome-{id}")
     public ModelAndView adminHome(@PathVariable("id")int id){
         System.out.println("Admin Home Running...");
 
-        List<StudentMarks> allStudents = studentMarksService.getAllStudentsMarks();
+        Iterable<StudentMarks> allStudents = studentMarksService.getAllStudentsMarks();
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("allStudents", allStudents);
         mv.setViewName("adminHome");
+        return mv;
+    }
+
+    @RequestMapping("deleteMarks-{id}")
+    public ModelAndView deleteMarks(@PathVariable("id")int id, @RequestParam(value = "sid",defaultValue = "0")int sid){
+        System.out.println("Delete marks running...");
+
+        ModelAndView mv = new ModelAndView();
+
+        Optional<Integer> check = studentMarksService.findById(sid);
+
+        if (check.isEmpty() && sid!=0){
+            mv.addObject("exists", "Student not Exists");
+        }
+
+        if (!check.isEmpty() && sid!=0){
+            System.out.println("Delete marks with student id ...");
+            studentMarksService.deleteMarksById(sid);
+            mv.setViewName("redirect:/adminHome-"+id);
+            return mv;
+        }
+        mv.setViewName("deleteMarks");
+        mv.addObject("id", id);
         return mv;
     }
 

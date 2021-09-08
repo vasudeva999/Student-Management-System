@@ -61,6 +61,7 @@ button {
     <center> <h1> Student Marks Register Form </h1> </center>
     <form action="#" th:object ="${marks}" method="POST">
         <div class="container">
+            <h4>${exists}</h4>
             <label>Student-ID : </label>
             <input type="text" placeholder="Enter Student ID" name="id" required>
             <label>Telugu: </label>
