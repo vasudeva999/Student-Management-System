@@ -98,6 +98,7 @@ button {
 
              <a class="submitButton" href="profile-${id}"> Profile </a>
              <a class="submitButton" href="/"> Log-out </a>
+             ${exists}
 
             </table><BR>
             </fieldset>

@@ -43,6 +43,17 @@ button {
         padding: 25px;
         background-color: lightblue;
     }
+    .submitButton {
+                 display: inline-block;
+                 padding: 10px 20px;
+                 text-align: center;
+                 text-decoration: none;
+                 color: #ffffff;
+                 background-color: #7aa8b7;
+                 border-radius: 6px;
+                 outline: none;
+                 margin-top: 19px;
+               }
 </style>
 </head>
 <body>
@@ -84,20 +95,9 @@ button {
      <h3>    You have no data in database</h3>
      <h3>    Contact your Admin :)</h3>
 
-     <form action="profile-0" method="POST">
-         </form>
-
-        <form action="profile-${id}" method="POST">
-              <div class="container">
-                <button type="submit" > Student Prodile </button>
-              </div>
-         </form>
-
-         <form action="/" method="POST">
-                 <div class="container">
-                   <button type="submit" class="cancelbtn"> Log-out </button>
-                 </div>
-         </form>
+       <a class="submitButton" href="profile-${id}"> Profile </a>
+       <a class="submitButton" href="/"> Log-out </a>
+       ${exists}
 
             </table><BR>
             </fieldset>

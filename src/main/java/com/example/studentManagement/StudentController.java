@@ -1,6 +1,5 @@
 package com.example.studentManagement;
 
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -123,6 +122,12 @@ public class StudentController {
         System.out.println("Home page Running...");
 
         ModelAndView mv = new ModelAndView();
+
+        boolean isAdmin = studentService.findByIsAdmin(id);
+        if (isAdmin){
+            String button = "<a class='submitButton' href='adminHome-"+id+"'> Switch to Admin Page </a>";
+            mv.addObject("exists", button);
+        }
 
         if (id==0){
             System.out.println("student need to login to access the home page");
