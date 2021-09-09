@@ -5,8 +5,6 @@ import java.util.Optional;
 
 public interface StudentService {
 
-    List<Student> getAllStudents();
-
     void saveStudent(Student student);
 
     Optional<Student> findByUserName(String userName);
@@ -14,6 +12,12 @@ public interface StudentService {
     Student findStudent(String userName, String password);
 
     void updateStudent(Student newStudent);
+
+    void  setLoginTrue(int id);
+
+    void setLoginFalse(int id);
+
+    boolean findByIsLogin(int id);
 
     void deleteStudentById (int id);
 

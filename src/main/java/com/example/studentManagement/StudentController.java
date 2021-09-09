@@ -19,66 +19,73 @@ public class StudentController {
     private StudentMarksService studentMarksService;
 
     @RequestMapping("/")
-    public String main(){
-        return "main";
-    }
+    public String main(){return "index";}
+
 
     @RequestMapping("login")
-    public ModelAndView login(LoginForm login) {
-        System.out.println("Login form Running...");
-
-        Student student = studentService.findStudent(login.getUserName(), login.getPassword());
-
+    public ModelAndView login(LoginForm login, Student newStudent) {
         ModelAndView mv = new ModelAndView();
 
-        if (student!=null && login.getUserName()!=null) {
-            if (student.getUserName().equalsIgnoreCase(login.getUserName()) &&
-                    student.getPassword().equalsIgnoreCase(login.getPassword())) {
-                if (student.isAdmin()) {
-                    mv.setViewName("redirect:/adminHome-" + student.getId());
+        if (login.getUserName()!=null) {
+            System.out.println("Login form Running...");
+
+            Student student = studentService.findStudent(login.getUserName(), login.getPassword());
+
+            if (student != null && login.getUserName() != null) {
+                if (student.getUserName().equalsIgnoreCase(login.getUserName()) &&
+                        student.getPassword().equalsIgnoreCase(login.getPassword())) {
+                    studentService.setLoginTrue(student.getId());
+                    if (student.isAdmin()) {
+                        mv.setViewName("redirect:/adminHome-" + student.getId());
+                        return mv;
+                    }
+                    mv.setViewName("redirect:/studentHome-" + student.getId());
                     return mv;
                 }
-                mv.setViewName("redirect:/studentHome-" + student.getId());
+
+            }
+
+            if (student == null && login.getUserName() != null) mv.addObject("existsLogin", "exists");
+            else mv.addObject("existsLogin", "");
+        }
+
+        // Register Page Controller
+        if (newStudent.getUserName()!=null) {
+            Optional<Student> userName = studentService.findByUserName(newStudent.getUserName());
+
+            System.out.println(newStudent.getUserName());
+            if (newStudent.getUserName() != null && userName.isEmpty()) {
+                System.out.println("new user saved...");
+                studentService.saveStudent(newStudent);
+                mv.setViewName("login");
                 return mv;
             }
 
+            if (!userName.isEmpty()) mv.addObject("existsRegister", "exists");
+            else mv.addObject("existsRegister", "");
         }
-        if (student==null && login.getUserName()!=null) mv.addObject("exists", "UserName or Password is wrong");
-
         mv.setViewName("login");
         return mv;
     }
 
-    @RequestMapping("register")
-    public ModelAndView register(Student student){
-        System.out.println("Register form Running...");
-
-        ModelAndView mv = new ModelAndView();
-
-        Optional<Student> userName = studentService.findByUserName(student.getUserName());
-
-        System.out.println(userName);
-        if (student.getUserName()!=null && userName.isEmpty()) {
-            studentService.saveStudent(student);
-            mv.setViewName("redirect:/login");
-            return mv;
-        }
-
-        if (!userName.isEmpty()) mv.addObject("exists", "UserName already exists.");
-        mv.setViewName("register");
-        return mv;
-    }
 
     @RequestMapping("profile-{id}")
     public ModelAndView profile(@PathVariable("id")int id){
         System.out.println("student-profile running....");
 
-        Student student = studentService.getStudentById(id);
-
         ModelAndView mv = new ModelAndView();
 
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
+        Student student = studentService.getStudentById(id);
+
         if (student==null){
-            mv.setViewName("redirect:/register");
+            mv.setViewName("redirect:/login");
             return mv;
         }
 
@@ -93,6 +100,13 @@ public class StudentController {
         System.out.println("Update-form running...");
 
         ModelAndView mv = new ModelAndView();
+
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
 
         Student student = studentService.getStudentById(id);
 
@@ -110,11 +124,21 @@ public class StudentController {
     }
 
     @RequestMapping("deleteUser-{id}")
-    public String deleteUser(@PathVariable("id")int id){
+    public ModelAndView deleteUser(@PathVariable("id")int id){
         System.out.println("Delete User running....");
 
+        ModelAndView mv = new ModelAndView();
+
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
         studentService.deleteStudentById(id);
-        return "redirect:/register";
+        mv.setViewName("redirect:/login");
+        return mv;
     }
 
     @RequestMapping("studentHome-{id}")
@@ -123,9 +147,16 @@ public class StudentController {
 
         ModelAndView mv = new ModelAndView();
 
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
         if (id==0){
             System.out.println("student need to login to access the home page");
-            mv.setViewName("redirect:/register");
+            mv.setViewName("redirect:/login");
             return mv;
         }
 
@@ -157,6 +188,13 @@ public class StudentController {
 
         ModelAndView mv = new ModelAndView();
 
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
         Optional<Integer> check = studentMarksService.findById(studentMarks.getId());
         if (studentMarks.getEnglish()!=0 && check.isEmpty()){
             studentMarks.setTotal();
@@ -182,6 +220,13 @@ public class StudentController {
 
         ModelAndView mv = new ModelAndView();
 
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
+
         Optional<Integer> check = studentMarksService.findById(newStudentMarks.getId());
         if (newStudentMarks.getEnglish()!=0 && !(check.isEmpty())){
             System.out.println("Updated mark list found.....");
@@ -200,9 +245,16 @@ public class StudentController {
     public ModelAndView adminHome(@PathVariable("id")int id){
         System.out.println("Admin Home Running...");
 
+        ModelAndView mv = new ModelAndView();
+
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
         Iterable<StudentMarks> allStudents = studentMarksService.getAllStudentsMarks();
 
-        ModelAndView mv = new ModelAndView();
         mv.addObject("allStudents", allStudents);
         mv.setViewName("adminHome");
         return mv;
@@ -213,6 +265,13 @@ public class StudentController {
         System.out.println("Delete marks running...");
 
         ModelAndView mv = new ModelAndView();
+
+        boolean isLogin = studentService.findByIsLogin(id);
+
+        if (isLogin==false){
+            mv.setViewName("redirect:/login");
+            return mv;
+        }
 
         Optional<Integer> check = studentMarksService.findById(sid);
 
@@ -228,6 +287,18 @@ public class StudentController {
         }
         mv.setViewName("deleteMarks");
         mv.addObject("id", id);
+        return mv;
+    }
+
+    @RequestMapping("logout-{id}")
+    public ModelAndView logout(@PathVariable("id")int id){
+        System.out.println("Logout Running...");
+
+        ModelAndView mv = new ModelAndView();
+
+        studentService.setLoginFalse(id);
+
+        mv.setViewName("redirect:/");
         return mv;
     }
 

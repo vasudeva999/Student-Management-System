@@ -107,7 +107,7 @@ button {
             <a class="submitButton" href="profile-${id}"> Profile </a>
 
             <a class="submitButton" href="studentHome-${id}"> Switch to Student Home Page </a>
-            <a class="submitButton" href="/"> Log-out </a>
+            <a class="submitButton" href="logout-${id}"> Log-out </a>
             <a class="submitButton" href="deleteMarks-${id}"> Delete Record </a>
 
             </table><BR>

@@ -25,4 +25,16 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query(value = "select * from STUDENT where user_name like ?1", nativeQuery = true)
     Optional<Student> findByUserName(String userName);
 
+    @Modifying
+    @Transactional
+    @Query(value = "Update STUDENT set Is_Login=true where id=?1", nativeQuery = true)
+    void setLoginTrue(int id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "Update STUDENT set Is_Login=false where id=?1", nativeQuery = true)
+    void setLoginFalse(int id);
+
+    @Query(value = "Select Is_Login from student where id=?1", nativeQuery = true)
+    boolean findByIsLogin(int id);
 }

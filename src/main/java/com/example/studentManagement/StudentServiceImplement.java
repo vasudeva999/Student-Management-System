@@ -13,11 +13,6 @@ public class StudentServiceImplement implements StudentService{
     private StudentRepository studentRepo;
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentRepo.findAll();
-    }
-
-    @Override
     public void saveStudent(Student student) {studentRepo.save(student);}
 
     @Override
@@ -46,8 +41,17 @@ public class StudentServiceImplement implements StudentService{
     }
 
     @Override
+    public void setLoginTrue(int id){studentRepo.setLoginTrue(id);}
+
+    @Override
+    public void setLoginFalse(int id){studentRepo.setLoginFalse(id);}
+
+    @Override
     public boolean findByIsAdmin(int id){return studentRepo.findByIsAdmin(id);}
 
     @Override
     public Optional<Student> findByUserName(String userName){return studentRepo.findByUserName(userName);}
+
+    @Override
+    public boolean findByIsLogin(int id){return studentRepo.findByIsLogin(id);}
 }

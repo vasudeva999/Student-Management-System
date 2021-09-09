@@ -97,7 +97,7 @@ button {
     </div>
 
              <a class="submitButton" href="profile-${id}"> Profile </a>
-             <a class="submitButton" href="/"> Log-out </a>
+             <a class="submitButton" href="logout-${id}"> Log-out </a>
              ${exists}
 
             </table><BR>

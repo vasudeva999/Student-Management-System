@@ -21,6 +21,8 @@ public class Student {
 
     private boolean isAdmin;
 
+    private boolean isLogin;
+
 
 
     public int getId() {
@@ -51,4 +53,6 @@ public class Student {
     }
     public boolean isAdmin() {return isAdmin;}
     public void setAdmin(boolean admin) {isAdmin = admin;}
+    public boolean isLogin() {return isLogin;}
+    public void setLogin(boolean login) {isLogin = login;}
 }
