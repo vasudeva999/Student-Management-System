@@ -9,3 +9,8 @@ function existsLogin(val) {
 function existsRegister(val) {
   if (val!="") {alert("User Already Exists.\nTry to Logging in...");}
 }
+$.get("/user", function(data) {
+        $("#user").html(data.userAuthentication.details.name);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });

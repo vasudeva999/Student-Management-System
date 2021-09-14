@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.SQLOutput;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +21,15 @@ public class StudentController {
     @RequestMapping("/")
     public String main(){return "index";}
 
+    @RequestMapping("/user")
+    public Principal getUser(Principal user) {
+        System.out.println("Principal is Running..");
+        return user;
+    }
 
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public ModelAndView login(LoginForm login, Student newStudent) {
+        System.out.println("login page Running...");
         ModelAndView mv = new ModelAndView();
 
         if (login.getUserName()!=null) {
@@ -53,9 +59,7 @@ public class StudentController {
         if (newStudent.getUserName()!=null) {
             Optional<Student> userName = studentService.findByUserName(newStudent.getUserName());
 
-            System.out.println(newStudent.getUserName());
             if (newStudent.getUserName() != null && userName.isEmpty()) {
-                System.out.println("new user saved...");
                 studentService.saveStudent(newStudent);
                 mv.setViewName("login");
                 return mv;
@@ -69,7 +73,7 @@ public class StudentController {
     }
 
 
-    @RequestMapping("profile-{id}")
+    @RequestMapping("/profile-{id}")
     public ModelAndView profile(@PathVariable("id")int id){
         System.out.println("student-profile running....");
 
@@ -95,7 +99,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("updateDetails-{id}")
+    @RequestMapping("/updateDetails-{id}")
     public ModelAndView updateDetails(@PathVariable("id")int id, Student newStudent){
         System.out.println("Update-form running...");
 
@@ -123,7 +127,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("deleteUser-{id}")
+    @RequestMapping("/deleteUser-{id}")
     public ModelAndView deleteUser(@PathVariable("id")int id){
         System.out.println("Delete User running....");
 
@@ -141,7 +145,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("studentHome-{id}")
+    @RequestMapping("/studentHome-{id}")
     public ModelAndView studentHome(@PathVariable("id")int id){
         System.out.println("Home page Running...");
 
@@ -182,7 +186,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("createMarkList-{id}")
+    @RequestMapping("/createMarkList-{id}")
     public ModelAndView createMarkList(@PathVariable("id")int id, StudentMarks studentMarks){
         System.out.println("Add marks running...");
 
@@ -214,7 +218,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("updateMarkList-{id}")
+    @RequestMapping("/updateMarkList-{id}")
     public ModelAndView updateMarkList(@PathVariable("id")int id, StudentMarks newStudentMarks){
         System.out.println("Update Mark List is Running...");
 
@@ -241,7 +245,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("adminHome-{id}")
+    @RequestMapping("/adminHome-{id}")
     public ModelAndView adminHome(@PathVariable("id")int id){
         System.out.println("Admin Home Running...");
 
@@ -260,7 +264,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("deleteMarks-{id}")
+    @RequestMapping("/deleteMarks-{id}")
     public ModelAndView deleteMarks(@PathVariable("id")int id, @RequestParam(value = "sid",defaultValue = "0")int sid){
         System.out.println("Delete marks running...");
 
@@ -290,7 +294,7 @@ public class StudentController {
         return mv;
     }
 
-    @RequestMapping("logout-{id}")
+    @RequestMapping("/logout-{id}")
     public ModelAndView logout(@PathVariable("id")int id){
         System.out.println("Logout Running...");
 

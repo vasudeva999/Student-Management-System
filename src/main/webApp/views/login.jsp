@@ -7,11 +7,12 @@
 </head>
 <body>
 
-  <form action="" th:object ="${login}" method="POST">
+
     <p class="tip">Student Management System</p>
 
     <div class="cont">
       <div class="form sign-in">
+      <form action="" th:object ="${login}" method="POST">
         <h2>Welcome back,</h2>
         <label>
           <span>UserName</span>
@@ -23,10 +24,22 @@
         </label>
        <%-- <p class="forgot-pass">Forgot password?</p> --%>
         <button type="submit" onclick="existsLogin(${existsLogin})" class="submit">Sign In</button>
-        <button type="button" class="fb-btn">Connect with <span>facebook</span></button>
 
+      </form>
+
+
+            <div class="unauthenticated">
+                 <button type="submit" class="fb-btn">Connect with <a href="/facebook">facebook</a></button>
+            </div>
+
+            <br>
+
+            <div class="authenticated">
+                 <button type="submit" class="fb-btn"> Successfully logged into <span id="user">facebook</span></button>
+            </div>
       </div>
-    </form>
+
+
 
 
       <div class="sub-cont">
@@ -48,9 +61,8 @@
 
 
 
-
-      <form action="" th:object ="${student}" method="POST">
         <div class="form sign-up">
+         <form action="" th:object ="${student}" method="POST">
           <h2>Time to feel like home,</h2>
           <label>
             <span>User Name</span>
@@ -70,9 +82,14 @@
           </label>
 
           <button type="submit" onclick="existsRegister(${existsRegister})" class="submit">Sign Up</button>
-          <button type="button" class="fb-btn">Join with <span>facebook</span></button>
+
+          </form>
+          <form action="#">
+                  <div class="authenticated">
+                       <button type="submit" class="fb-btn">Join with <span id="user">facebook</span></button>
+                  </div>
+            </form>
         </div>
-      </form>
       </div>
     </div>
     <form action="/" method="POST">
@@ -86,6 +103,6 @@
       <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png">
     </a> --%>
 
-</body>
 <script src="js/login.js"></script>
+</body>
 </html>
